@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Media;
+using System.Security.Policy;
 using System.Text.Json;
 using System.Windows.Forms;
 
@@ -9,9 +10,12 @@ namespace TIMBrowser
 {
     public partial class Settings : Form
     {
-
+            public string rgb_S = "";
+            public string rgb_S1 = "";
+            public string rgb_S2 = "";
         public class SettingPar
         {
+            
             public string searchSys { get; set; }
             public string startPage { get; set; }
             public bool saveHist { get; set; }
@@ -20,6 +24,8 @@ namespace TIMBrowser
             public bool saveCash { get; set; }
             public bool saveDown { get; set; }
             public string saveURL { get; set; }
+            public string Style { get; set; }
+
         }
         public Settings()
         {
@@ -38,9 +44,29 @@ namespace TIMBrowser
                 saveCash = checkBox3.Checked,
                 saveDown = checkBox4.Checked,
                 saveURL = comboBox4.Text,
+                Style = comboBox5.Text,
             };
+            rgb_S = textBox2.Text;
+            rgb_S1 = textBox3.Text;
+            rgb_S2 = textBox4.Text;
+            File.WriteAllText("browser/rgb/c.txt", rgb_S);
+            File.WriteAllText("browser/rgb/c1.txt", rgb_S1);
+            File.WriteAllText("browser/rgb/c2.txt", rgb_S2);
+
+            File.WriteAllText("browser/rgb/b.txt", textBox5.Text);
+            File.WriteAllText("browser/rgb/b1.txt", textBox6.Text);
+            File.WriteAllText("browser/rgb/b2.txt", textBox7.Text);
             string json = JsonSerializer.Serialize(setp);
             File.WriteAllText("browser/settings.json", json);
+            if (setp.saveURL == "URL")
+            {
+                File.WriteAllText("browser/c.txt", "yu");
+            }
+            else if (setp.saveURL == "Название файла")
+            {
+                File.WriteAllText("browser/c.txt", "ys");
+            }
+           
         }
 
         private void Settings_Load(object sender, EventArgs e)
@@ -52,6 +78,14 @@ namespace TIMBrowser
             listBox3.Items.AddRange(down);
             string[] save = File.ReadAllLines("browser/save.txt");
             listBox2.Items.AddRange(save);
+
+            textBox2.Text = File.ReadAllText("browser/rgb/c.txt");
+            textBox3.Text = File.ReadAllText("browser/rgb/c1.txt");
+            textBox4.Text = File.ReadAllText("browser/rgb/c2.txt");
+
+            textBox5.Text = File.ReadAllText("browser/rgb/b.txt");
+            textBox6.Text = File.ReadAllText("browser/rgb/b1.txt");
+            textBox7.Text = File.ReadAllText("browser/rgb/b2.txt");
             try
             {
                 SettingPar setp = JsonSerializer.Deserialize<SettingPar>(File.ReadAllText("browser/settings.json"));
@@ -63,6 +97,7 @@ namespace TIMBrowser
                 checkBox3.Checked = setp.saveCash;
                 checkBox4.Checked = setp.saveDown;
                  comboBox4.Text= setp.saveURL;
+                comboBox5.Text = setp.Style;
             }
             catch (Exception) { }
         }
@@ -192,6 +227,47 @@ namespace TIMBrowser
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
            
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            textBox2.Text = "215";
+            textBox3.Text = "228";
+            textBox4.Text = "242";
+
+            textBox5.Text = "185";
+            textBox6.Text = "209";
+            textBox7.Text = "234";
+        }
+
+        private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

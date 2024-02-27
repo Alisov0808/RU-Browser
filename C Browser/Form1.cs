@@ -11,6 +11,10 @@ using TIMBrowser;
 using static TIMBrowser.Settings;
 using add;
 using C_Browser0;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Drawing;
+using CefSharp.WinForms.Internals;
+using Win32Interop.Structs;
 
 namespace C_Browser
 {
@@ -26,9 +30,12 @@ namespace C_Browser
 
         public Form1()
         {
+            
             InitializeComponent();
-
+           
+            // textBox1.BackColor = Color.FromArgb();
         }
+
         public void AddHistory(string site)
         {
             if (setp.saveHist)
@@ -42,11 +49,22 @@ namespace C_Browser
                     File.AppendAllText("browser/history.txt", "\n" + site);
             }
         }
+
         public void Form1_Load(object sender, EventArgs e)
         {
+
+            
             try
             {
-
+                int a0 = Convert.ToInt32(File.ReadAllText("browser/rgb/c.txt"));
+                int a1 = Convert.ToInt32(File.ReadAllText("browser/rgb/c1.txt"));
+                int a2 = Convert.ToInt32(File.ReadAllText("browser/rgb/c2.txt"));
+                textBox1.BackColor = Color.FromArgb(a0, a1, a2);
+                int a00 = Convert.ToInt32(File.ReadAllText("browser/rgb/b.txt"));
+                int a11 = Convert.ToInt32(File.ReadAllText("browser/rgb/b1.txt"));
+                int a22 = Convert.ToInt32(File.ReadAllText("browser/rgb/b2.txt"));
+                this.BackColor = Color.FromArgb(a00, a11, a22);
+                
                 setp = JsonSerializer.Deserialize<SettingPar>(File.ReadAllText("browser/settings.json"));
 
             }
@@ -61,7 +79,8 @@ namespace C_Browser
                     saveDate = false,
                     saveCash = true,
                     saveDown = true,
-                    saveURL = "URL"
+                    saveURL = "URL",
+                    Style = "Flat"
                     
                 };
             }
@@ -69,10 +88,54 @@ namespace C_Browser
             Directory.CreateDirectory(@"C:\Users\Public\IE 12 Cashe");
             Directory.CreateDirectory(@"C:\Users\Public\IE 12 Cashe\Cookes");
             CefSharp.Cookie c = new CefSharp.Cookie();
+            if (setp.Style == "Popup")
+            {
+                button1.FlatStyle = FlatStyle.Popup;
+                button2.FlatStyle = FlatStyle.Popup;
+                button3.FlatStyle = FlatStyle.Popup;
+                button4.FlatStyle = FlatStyle.Popup;
+                button5.FlatStyle = FlatStyle.Popup;
+                button6.FlatStyle = FlatStyle.Popup;
+                button7.FlatStyle = FlatStyle.Popup;
+                button8.FlatStyle = FlatStyle.Popup;
+                button9.FlatStyle = FlatStyle.Popup;
+                button10.FlatStyle = FlatStyle.Popup;
+
+            }
+            if (setp.Style == "Standard")
+            {
+                button1.FlatStyle = FlatStyle.Standard;
+                button2.FlatStyle = FlatStyle.Standard;
+                button3.FlatStyle = FlatStyle.Standard;
+                button4.FlatStyle = FlatStyle.Standard;
+                button5.FlatStyle = FlatStyle.Standard;
+                button6.FlatStyle = FlatStyle.Standard;
+                button7.FlatStyle = FlatStyle.Standard;
+                button8.FlatStyle = FlatStyle.Standard;
+                button9.FlatStyle = FlatStyle.Standard;
+                button10.FlatStyle = FlatStyle.Standard;
+
+            }
+            if (setp.Style == "Flat")
+            {
+                button1.FlatStyle = FlatStyle.Flat;
+                button2.FlatStyle = FlatStyle.Flat;
+                button3.FlatStyle = FlatStyle.Flat;
+                button4.FlatStyle = FlatStyle.Flat;
+                button5.FlatStyle = FlatStyle.Flat;
+                button6.FlatStyle = FlatStyle.Flat;
+                button7.FlatStyle = FlatStyle.Flat;
+                button8.FlatStyle = FlatStyle.Flat;
+                button9.FlatStyle = FlatStyle.Flat;
+                button10.FlatStyle = FlatStyle.Flat;
+
+            }
             if (setp.saveURL == "URL")
             {
                 File.WriteAllText("browser/c.txt", "yu");
             }
+           
+
             else if (setp.saveURL == "Название файла") 
             {
                 File.WriteAllText("browser/c.txt", "ys");
@@ -112,6 +175,7 @@ namespace C_Browser
 
         private void Chromium_TitleChanged(object sender, TitleChangedEventArgs e)
         {
+            
             this.Invoke(new MethodInvoker(() =>
             {
                 tabControl1.SelectedTab.Text = e.Title;
@@ -204,14 +268,16 @@ namespace C_Browser
         public void button5_Click(object sender, EventArgs e)
         {
 
-
+           
             TabPage tab = new TabPage();
             tab.Text = "Новая вкладка";
             ChromiumWebBrowser chromium = new ChromiumWebBrowser("https://" + setp.startPage);
             tab.Controls.Add(chromium);
+            tabControl1.TabPages.Add(tab);
+            tabControl1.SelectedTab = tab;
             chromium.AddressChanged += Chromium_AddressChanged;
             chromium.TitleChanged += Chromium_TitleChanged;
-            tabControl1.TabPages.Add(tab);
+            
 
         }
 
@@ -230,7 +296,7 @@ namespace C_Browser
 
 
         }
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
             ChromiumWebBrowser crome = tabControl1.SelectedTab.Controls[0] as ChromiumWebBrowser;
@@ -256,7 +322,7 @@ namespace C_Browser
 
         private void tabPage1_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -267,7 +333,7 @@ namespace C_Browser
 
         private void textBox1_TextChanged_1(object sender, EventArgs e)
         {
-
+            //textBox1.BackColor = Color.FromArgb(225,225,255);
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -286,5 +352,15 @@ namespace C_Browser
             }));
 
         }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+
+            ChromiumWebBrowser crome = tabControl1.SelectedTab.Controls[0] as ChromiumWebBrowser;
+            crome.Load(setp.startPage);
+            
+        }
     }
 }
+
+    
