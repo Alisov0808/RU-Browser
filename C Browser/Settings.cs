@@ -1,4 +1,5 @@
 ﻿using C_Browser;
+using CefSharp;
 using System;
 using System.IO;
 using System.Media;
@@ -30,6 +31,7 @@ namespace TIMBrowser
         public Settings()
         {
             InitializeComponent();
+           
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -71,7 +73,11 @@ namespace TIMBrowser
 
         private void Settings_Load(object sender, EventArgs e)
         {
-
+            linkLabel1.LinkClicked += linkLabel1_LinkClicked;
+            string a = Cef.ChromiumVersion.ToString();
+            label14.Text = $"Версия Chromium: {a}";
+            string a2 = Cef.CefSharpVersion.ToString();
+            label15.Text = $"Версия CefSharp: {a2}";
             string[] hist = File.ReadAllLines("browser/history.txt");
             listBox1.Items.AddRange(hist);
             string[] down = File.ReadAllLines("browser/down.txt");
@@ -267,6 +273,17 @@ namespace TIMBrowser
 
         private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/Alisov0808/RU-Browser");
+        }
+
+        private void label14_Click(object sender, EventArgs e)
+        {
+            
 
         }
     }

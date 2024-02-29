@@ -32,7 +32,7 @@ namespace C_Browser
         {
             
             InitializeComponent();
-           
+          
             // textBox1.BackColor = Color.FromArgb();
         }
 
@@ -56,6 +56,7 @@ namespace C_Browser
             
             try
             {
+                
                 int a0 = Convert.ToInt32(File.ReadAllText("browser/rgb/c.txt"));
                 int a1 = Convert.ToInt32(File.ReadAllText("browser/rgb/c1.txt"));
                 int a2 = Convert.ToInt32(File.ReadAllText("browser/rgb/c2.txt"));
@@ -280,7 +281,7 @@ namespace C_Browser
             
 
         }
-
+        
         private void button6_Click(object sender, EventArgs e)
         {
 
@@ -359,6 +360,11 @@ namespace C_Browser
             ChromiumWebBrowser crome = tabControl1.SelectedTab.Controls[0] as ChromiumWebBrowser;
             crome.Load(setp.startPage);
             
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Cef.Shutdown();
         }
     }
 }
