@@ -278,7 +278,17 @@ namespace C_Browser
             tabControl1.SelectedTab = tab;
             chromium.AddressChanged += Chromium_AddressChanged;
             chromium.TitleChanged += Chromium_TitleChanged;
-            
+            FullScreen.DisplayHandler displayer = new FullScreen.DisplayHandler();
+            chromium.DisplayHandler = displayer;
+            chromium.Dock = DockStyle.Fill;
+            add.ExtensionHandler extension = new add.ExtensionHandler();
+
+            C_Browser0.CustomMenuHandler customMenu = new C_Browser0.CustomMenuHandler();
+            chromium.MenuHandler = customMenu;
+            CefSharp.Example.DownloadHandler downloadHandler = new CefSharp.Example.DownloadHandler();
+            chromium.DownloadHandler = downloadHandler;
+            chromium.Margin = Padding.Empty;
+
 
         }
         
