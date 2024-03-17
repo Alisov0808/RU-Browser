@@ -58,6 +58,10 @@ namespace TIMBrowser
             File.WriteAllText("browser/rgb/b.txt", textBox5.Text);
             File.WriteAllText("browser/rgb/b1.txt", textBox6.Text);
             File.WriteAllText("browser/rgb/b2.txt", textBox7.Text);
+
+            File.WriteAllText("browser/rgb/s1.txt", textBox8.Text);
+            File.WriteAllText("browser/rgb/s2.txt", textBox9.Text);
+            File.WriteAllText("browser/rgb/s3.txt", textBox10.Text);
             string json = JsonSerializer.Serialize(setp);
             File.WriteAllText("browser/settings.json", json);
             if (setp.saveURL == "URL")
@@ -92,6 +96,10 @@ namespace TIMBrowser
             textBox5.Text = File.ReadAllText("browser/rgb/b.txt");
             textBox6.Text = File.ReadAllText("browser/rgb/b1.txt");
             textBox7.Text = File.ReadAllText("browser/rgb/b2.txt");
+
+            textBox8.Text = File.ReadAllText("browser/rgb/s1.txt");
+            textBox9.Text = File.ReadAllText("browser/rgb/s2.txt");
+            textBox10.Text = File.ReadAllText("browser/rgb/s3.txt");
             try
             {
                 SettingPar setp = JsonSerializer.Deserialize<SettingPar>(File.ReadAllText("browser/settings.json"));
@@ -269,6 +277,10 @@ namespace TIMBrowser
             textBox5.Text = "185";
             textBox6.Text = "209";
             textBox7.Text = "234";
+
+            textBox8.Text = "255";
+            textBox9.Text = "255";
+            textBox10.Text = "255";
         }
 
         private void comboBox5_SelectedIndexChanged(object sender, EventArgs e)
@@ -284,6 +296,28 @@ namespace TIMBrowser
         private void label14_Click(object sender, EventArgs e)
         {
             
+
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            
+            
+            File.AppendAllText("browser/dostyp.txt","\n"+listBox2.Text );
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            File.WriteAllText("browser/dostyp.txt","");
+        }
+
+        private void label17_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
 
         }
     }

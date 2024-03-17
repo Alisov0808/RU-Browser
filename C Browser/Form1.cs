@@ -1,24 +1,17 @@
 ﻿using CefSharp;
 using CefSharp.WinForms;
 using System;
-using System.Diagnostics;
+using System.Drawing;
 using System.IO;
-using System.Security.Policy;
+using System.Net;
 using System.Text.Json;
-using System.Web.UI;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using TIMBrowser;
 using static TIMBrowser.Settings;
-using add;
-using C_Browser0;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Drawing;
-using CefSharp.WinForms.Internals;
-using Win32Interop.Structs;
 
 namespace C_Browser
 {
-
     public partial class Form1 : Form
     {
         bool check = false;
@@ -26,13 +19,16 @@ namespace C_Browser
         Settings.SettingPar setp;
         string adress;
         public bool checus = false;
+        public ImageList list = new ImageList();
+         
 
 
         public Form1()
         {
-            
+            //list.ImageSize = new Size(16, 16);
+           
             InitializeComponent();
-          
+
             // textBox1.BackColor = Color.FromArgb();
         }
 
@@ -49,14 +45,39 @@ namespace C_Browser
                     File.AppendAllText("browser/history.txt", "\n" + site);
             }
         }
+        public ChromiumWebBrowser getCurrentBrowser()
+        {
+            return (ChromiumWebBrowser)tabControl1.SelectedTab.Controls[0];
+        }
+        public void ico()
+        {
+            WebClient wc = new WebClient();
 
+            try
+            {
+                Exception ex = new Exception();
+                MemoryStream memorystream = new MemoryStream(wc.DownloadData("http://" + new Uri(getCurrentBrowser().Address.ToString()).Host + "/favicon.ico"));
+                Icon icon = new Icon(memorystream);
+
+                string i = Convert.ToString(list.Images.Count);
+                list.Images.Add(i, icon.ToBitmap());
+                //list.ImageSize = new Size(icon.Width, icon.Height);
+                tabControl1.ImageList = list;
+                tabControl1.SelectedTab.ImageIndex = list.Images.Count - 1;
+            }
+            catch (Exception) 
+            {
+                
+            }
+           
+        }
         public void Form1_Load(object sender, EventArgs e)
         {
 
-            
+
             try
             {
-                
+
                 int a0 = Convert.ToInt32(File.ReadAllText("browser/rgb/c.txt"));
                 int a1 = Convert.ToInt32(File.ReadAllText("browser/rgb/c1.txt"));
                 int a2 = Convert.ToInt32(File.ReadAllText("browser/rgb/c2.txt"));
@@ -65,7 +86,16 @@ namespace C_Browser
                 int a11 = Convert.ToInt32(File.ReadAllText("browser/rgb/b1.txt"));
                 int a22 = Convert.ToInt32(File.ReadAllText("browser/rgb/b2.txt"));
                 this.BackColor = Color.FromArgb(a00, a11, a22);
-                
+                int a000 = Convert.ToInt32(File.ReadAllText("browser/rgb/s1.txt"));
+                int a111 = Convert.ToInt32(File.ReadAllText("browser/rgb/s2.txt"));
+                int a222 = Convert.ToInt32(File.ReadAllText("browser/rgb/s3.txt"));
+                comboBox1.BackColor = Color.FromArgb(a000, a111, a222);
+                comboBox1.SelectedItem = "Быстрый доступ";
+
+                string[] dos = File.ReadAllLines("browser/dostyp.txt");
+
+                comboBox1.Items.Clear();
+                comboBox1.Items.AddRange(dos);
                 setp = JsonSerializer.Deserialize<SettingPar>(File.ReadAllText("browser/settings.json"));
 
             }
@@ -82,7 +112,7 @@ namespace C_Browser
                     saveDown = true,
                     saveURL = "URL",
                     Style = "Flat"
-                    
+
                 };
             }
             CefSettings set = new CefSettings();
@@ -101,6 +131,7 @@ namespace C_Browser
                 button8.FlatStyle = FlatStyle.Popup;
                 button9.FlatStyle = FlatStyle.Popup;
                 button10.FlatStyle = FlatStyle.Popup;
+                button11.FlatStyle = FlatStyle.Popup;
 
             }
             if (setp.Style == "Standard")
@@ -115,6 +146,7 @@ namespace C_Browser
                 button8.FlatStyle = FlatStyle.Standard;
                 button9.FlatStyle = FlatStyle.Standard;
                 button10.FlatStyle = FlatStyle.Standard;
+                button11.FlatStyle = FlatStyle.Standard;
 
             }
             if (setp.Style == "Flat")
@@ -129,15 +161,16 @@ namespace C_Browser
                 button8.FlatStyle = FlatStyle.Flat;
                 button9.FlatStyle = FlatStyle.Flat;
                 button10.FlatStyle = FlatStyle.Flat;
+                button11.FlatStyle = FlatStyle.Flat;
 
             }
             if (setp.saveURL == "URL")
             {
                 File.WriteAllText("browser/c.txt", "yu");
             }
-           
 
-            else if (setp.saveURL == "Название файла") 
+
+            else if (setp.saveURL == "Название файла")
             {
                 File.WriteAllText("browser/c.txt", "ys");
             }
@@ -160,15 +193,20 @@ namespace C_Browser
             FullScreen.DisplayHandler displayer = new FullScreen.DisplayHandler();
             chromium.DisplayHandler = displayer;
             chromium.Dock = DockStyle.Fill;
-            add.ExtensionHandler extension = new add.ExtensionHandler();
-             
+            CefSharp.Example.Handlers.ExtensionHandler extension = new CefSharp.Example.Handlers.ExtensionHandler();
+
             C_Browser0.CustomMenuHandler customMenu = new C_Browser0.CustomMenuHandler();
             chromium.MenuHandler = customMenu;
             CefSharp.Example.DownloadHandler downloadHandler = new CefSharp.Example.DownloadHandler();
             chromium.DownloadHandler = downloadHandler;
             chromium.Margin = Padding.Empty;
-            
 
+
+
+
+
+            Ded.MyCustomLifeSpanHandler myCustomLifeSpanHandler = new Ded.MyCustomLifeSpanHandler();
+            chromium.LifeSpanHandler = myCustomLifeSpanHandler;
             tabControl1.SelectedTab.Controls.Add(chromium);
 
 
@@ -176,9 +214,10 @@ namespace C_Browser
 
         private void Chromium_TitleChanged(object sender, TitleChangedEventArgs e)
         {
-            
+
             this.Invoke(new MethodInvoker(() =>
             {
+                ico();
                 tabControl1.SelectedTab.Text = e.Title;
                 tabControl1.SelectedTab.Text = e.Title;
                 if (setp.saveType == "Адрес")
@@ -214,6 +253,7 @@ namespace C_Browser
 
         private void button4_Click(object sender, EventArgs e)
         {
+
             ChromiumWebBrowser crome = tabControl1.SelectedTab.Controls[0] as ChromiumWebBrowser;
             if (crome != null)
             {
@@ -269,7 +309,7 @@ namespace C_Browser
         public void button5_Click(object sender, EventArgs e)
         {
 
-           
+
             TabPage tab = new TabPage();
             tab.Text = "Новая вкладка";
             ChromiumWebBrowser chromium = new ChromiumWebBrowser("https://" + setp.startPage);
@@ -281,8 +321,11 @@ namespace C_Browser
             FullScreen.DisplayHandler displayer = new FullScreen.DisplayHandler();
             chromium.DisplayHandler = displayer;
             chromium.Dock = DockStyle.Fill;
-            add.ExtensionHandler extension = new add.ExtensionHandler();
+            CefSharp.Example.Handlers.ExtensionHandler extension = new CefSharp.Example.Handlers.ExtensionHandler();
 
+
+            Ded.MyCustomLifeSpanHandler myCustomLifeSpanHandler = new Ded.MyCustomLifeSpanHandler();
+            chromium.LifeSpanHandler = myCustomLifeSpanHandler;
             C_Browser0.CustomMenuHandler customMenu = new C_Browser0.CustomMenuHandler();
             chromium.MenuHandler = customMenu;
             CefSharp.Example.DownloadHandler downloadHandler = new CefSharp.Example.DownloadHandler();
@@ -291,13 +334,13 @@ namespace C_Browser
 
 
         }
-        
+
         private void button6_Click(object sender, EventArgs e)
         {
 
             // button6.Top = tabControl1.SelectedTab.Top;
-           // button6.Left = tabControl1.SelectedTab.Left;
-            
+            // button6.Left = tabControl1.SelectedTab.Left;
+
             if (tabControl1.TabCount > 1)
             {
                 tabControl1.TabPages.Remove(tabControl1.SelectedTab);
@@ -307,7 +350,7 @@ namespace C_Browser
 
 
         }
-        
+
         private void button1_Click(object sender, EventArgs e)
         {
             ChromiumWebBrowser crome = tabControl1.SelectedTab.Controls[0] as ChromiumWebBrowser;
@@ -333,7 +376,7 @@ namespace C_Browser
 
         private void tabPage1_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -369,14 +412,74 @@ namespace C_Browser
 
             ChromiumWebBrowser crome = tabControl1.SelectedTab.Controls[0] as ChromiumWebBrowser;
             crome.Load(setp.startPage);
-            
+
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Cef.Shutdown();
         }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+
+            ChromiumWebBrowser crome = tabControl1.SelectedTab.Controls[0] as ChromiumWebBrowser;
+            if (crome != null)
+            {
+                string sys = "https://www.google.com/search?q=";
+                if (setp.searchSys == "Яндекс")
+                {
+
+                    sys = "https://yandex.ru/search/?text=";
+                    if (comboBox1.Text.StartsWith("http") || comboBox1.Text.StartsWith("https"))
+                    {
+
+                        crome.Load(comboBox1.Text);
+                    }
+                    else
+                    {
+                        crome.Load(sys + comboBox1.Text);
+
+                    }
+                }
+                else if (setp.searchSys == "Google")
+                {
+                    sys = "https://www.google.ru/search?q=";
+                    if (comboBox1.Text.StartsWith("http") || comboBox1.Text.StartsWith("https"))
+                    {
+
+                        crome.Load(comboBox1.Text);
+                    }
+                    else
+                    {
+                        crome.Load(sys + comboBox1.Text);
+
+                    }
+                }
+                else if (setp.searchSys == "Mail.ru")
+                {
+                    sys = "https://mail.ru/search?search_source=mailru_desktop_safe&text=";
+                    if (comboBox1.Text.StartsWith("http") || comboBox1.Text.StartsWith("https"))
+                    {
+
+                        crome.Load(comboBox1.Text);
+                    }
+                    else
+                    {
+                        crome.Load(sys + comboBox1.Text);
+
+                    }
+                }
+
+
+            }
+        }
     }
 }
 
-    
+

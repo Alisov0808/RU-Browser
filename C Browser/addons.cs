@@ -1,55 +1,66 @@
-﻿using CefSharp;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
-namespace add
+namespace CefSharp.Example.Handlers
 {
     public class ExtensionHandler : IExtensionHandler
     {
-        public bool CanAccessBrowser(IExtension extension, IBrowser browser, bool includeIncognito, IBrowser targetBrowser)
-        {
-            return true;
-        }
+        public Func<IExtension, bool, IBrowser> GetActiveBrowser;
+        public Action<string> LoadExtensionPopup;
 
         public void Dispose()
         {
+            GetActiveBrowser = null;
+            LoadExtensionPopup = null;
         }
 
-        public IBrowser GetActiveBrowser(IExtension extension, IBrowser browser, bool includeIncognito)
+        bool IExtensionHandler.CanAccessBrowser(IExtension extension, IBrowser browser, bool includeIncognito, IBrowser targetBrowser)
         {
-            return browser;
+            return false;
         }
 
-        public bool GetExtensionResource(IExtension extension, IBrowser browser, string file, IGetExtensionResourceCallback callback)
+        IBrowser IExtensionHandler.GetActiveBrowser(IExtension extension, IBrowser browser, bool includeIncognito)
         {
-            return true;
+            return GetActiveBrowser?.Invoke(extension, includeIncognito);
+            return null;
         }
 
-        public bool OnBeforeBackgroundBrowser(IExtension extension, string url, IBrowserSettings settings)
+        bool IExtensionHandler.GetExtensionResource(IExtension extension, IBrowser browser, string file, IGetExtensionResourceCallback callback)
         {
-
-            return true;
+            return false;
         }
 
-        public bool OnBeforeBrowser(IExtension extension, IBrowser browser, IBrowser activeBrowser, int index, string url, bool active, IWindowInfo windowInfo, IBrowserSettings settings)
+        bool IExtensionHandler.OnBeforeBackgroundBrowser(IExtension extension, string url, IBrowserSettings settings)
         {
-            browser.ShowDevTools();
-            return true;
+            return false;
         }
 
-        public void OnExtensionLoaded(IExtension extension)
+        bool IExtensionHandler.OnBeforeBrowser(IExtension extension, IBrowser browser, IBrowser activeBrowser, int index, string url, bool active, IWindowInfo windowInfo, IBrowserSettings settings)
         {
+            return false;
         }
 
-        public void OnExtensionLoadFailed(CefErrorCode errorCode)
+        void IExtensionHandler.OnExtensionLoaded(IExtension extension)
         {
+            var manifest = extension.Manifest;
+            var browserAction = manifest["browser_action"].GetDictionary();
+            if (browserAction.ContainsKey("default_popup"))
+            {
+                var popupUrl = browserAction["default_popup"].GetString();
+
+                popupUrl = "chrome-extension://" + extension.Identifier + "/" + popupUrl;
+
+                LoadExtensionPopup?.Invoke(popupUrl);
+            }
         }
 
-        public void OnExtensionUnloaded(IExtension extension)
+        void IExtensionHandler.OnExtensionLoadFailed(CefErrorCode errorCode)
         {
+
+        }
+
+        void IExtensionHandler.OnExtensionUnloaded(IExtension extension)
+        {
+
         }
     }
 }
