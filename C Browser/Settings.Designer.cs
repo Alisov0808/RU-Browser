@@ -119,7 +119,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(6, 61);
+            this.label2.Location = new System.Drawing.Point(6, 78);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(204, 25);
             this.label2.TabIndex = 1;
@@ -147,7 +147,7 @@
             "yandex.ru",
             "google.com",
             "mail.ru"});
-            this.comboBox2.Location = new System.Drawing.Point(313, 62);
+            this.comboBox2.Location = new System.Drawing.Point(313, 78);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(121, 28);
             this.comboBox2.TabIndex = 3;
