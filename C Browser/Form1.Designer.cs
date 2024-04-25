@@ -195,7 +195,7 @@
             this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox1.MaximumSize = new System.Drawing.Size(9000, 45);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1398, 46);
+            this.textBox1.Size = new System.Drawing.Size(1398, 43);
             this.textBox1.TabIndex = 402;
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
             // 
@@ -235,11 +235,11 @@
             this.tabControl1.Cursor = System.Windows.Forms.Cursors.Cross;
             this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.76471F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tabControl1.ItemSize = new System.Drawing.Size(27, 28);
-            this.tabControl1.Location = new System.Drawing.Point(-8, 49);
+            this.tabControl1.Location = new System.Drawing.Point(-8, 43);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(2576, 1186);
+            this.tabControl1.Size = new System.Drawing.Size(2576, 1203);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.FillToRight;
             this.tabControl1.TabIndex = 0;
             // 
@@ -251,7 +251,7 @@
             this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tabPage1.Size = new System.Drawing.Size(2568, 1150);
+            this.tabPage1.Size = new System.Drawing.Size(2568, 1167);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Новая вкладка";
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
@@ -285,7 +285,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.ClientSize = new System.Drawing.Size(1924, 743);
+            this.ClientSize = new System.Drawing.Size(1924, 859);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button11);
             this.Controls.Add(this.button2);

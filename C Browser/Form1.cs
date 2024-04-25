@@ -1,4 +1,5 @@
 ﻿using CefSharp;
+using CefSharp.DevTools.Autofill;
 using CefSharp.WinForms;
 using System;
 using System.Drawing;
@@ -8,6 +9,7 @@ using System.Text.Json;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using TIMBrowser;
+using static System.Net.WebRequestMethods;
 using static TIMBrowser.Settings;
 
 namespace C_Browser
@@ -20,7 +22,7 @@ namespace C_Browser
         string adress;
         public bool checus = false;
         public ImageList list = new ImageList();
-         
+        
 
 
         public Form1()
@@ -39,10 +41,10 @@ namespace C_Browser
                 if (setp.saveDate)
                 {
                     DateTime dt = DateTime.UtcNow;
-                    File.AppendAllText("browser/history.txt", "\n" + site + "\t" + dt.ToString("HH:mm dd.MM.yy"));
+                    System.IO.File.AppendAllText("browser/history.txt", "\n" + site + "\t" + dt.ToString("HH:mm dd.MM.yy"));
                 }
                 else
-                    File.AppendAllText("browser/history.txt", "\n" + site);
+                    System.IO.File.AppendAllText("browser/history.txt", "\n" + site);
             }
         }
         public ChromiumWebBrowser getCurrentBrowser()
@@ -65,7 +67,7 @@ namespace C_Browser
                 tabControl1.ImageList = list;
                 tabControl1.SelectedTab.ImageIndex = list.Images.Count - 1;
             }
-            catch (Exception) 
+            catch 
             {
                 
             }
@@ -78,25 +80,25 @@ namespace C_Browser
             try
             {
 
-                int a0 = Convert.ToInt32(File.ReadAllText("browser/rgb/c.txt"));
-                int a1 = Convert.ToInt32(File.ReadAllText("browser/rgb/c1.txt"));
-                int a2 = Convert.ToInt32(File.ReadAllText("browser/rgb/c2.txt"));
+                int a0 = Convert.ToInt32(System.IO.File.ReadAllText("browser/rgb/c.txt"));
+                int a1 = Convert.ToInt32(System.IO.File.ReadAllText("browser/rgb/c1.txt"));
+                int a2 = Convert.ToInt32(System.IO.File.ReadAllText("browser/rgb/c2.txt"));
                 textBox1.BackColor = Color.FromArgb(a0, a1, a2);
-                int a00 = Convert.ToInt32(File.ReadAllText("browser/rgb/b.txt"));
-                int a11 = Convert.ToInt32(File.ReadAllText("browser/rgb/b1.txt"));
-                int a22 = Convert.ToInt32(File.ReadAllText("browser/rgb/b2.txt"));
+                int a00 = Convert.ToInt32(System.IO.File.ReadAllText("browser/rgb/b.txt"));
+                int a11 = Convert.ToInt32(System.IO.File.ReadAllText("browser/rgb/b1.txt"));
+                int a22 = Convert.ToInt32(System.IO.File.ReadAllText("browser/rgb/b2.txt"));
                 this.BackColor = Color.FromArgb(a00, a11, a22);
-                int a000 = Convert.ToInt32(File.ReadAllText("browser/rgb/s1.txt"));
-                int a111 = Convert.ToInt32(File.ReadAllText("browser/rgb/s2.txt"));
-                int a222 = Convert.ToInt32(File.ReadAllText("browser/rgb/s3.txt"));
+                int a000 = Convert.ToInt32(System.IO.File.ReadAllText("browser/rgb/s1.txt"));
+                int a111 = Convert.ToInt32(System.IO.File.ReadAllText("browser/rgb/s2.txt"));
+                int a222 = Convert.ToInt32(System.IO.File.ReadAllText("browser/rgb/s3.txt"));
                 comboBox1.BackColor = Color.FromArgb(a000, a111, a222);
                 comboBox1.SelectedItem = "Быстрый доступ";
 
-                string[] dos = File.ReadAllLines("browser/dostyp.txt");
+                string[] dos = System.IO.File.ReadAllLines("browser/dostyp.txt");
 
                 comboBox1.Items.Clear();
                 comboBox1.Items.AddRange(dos);
-                setp = JsonSerializer.Deserialize<SettingPar>(File.ReadAllText("browser/settings.json"));
+                setp = JsonSerializer.Deserialize<SettingPar>(System.IO.File.ReadAllText("browser/settings.json"));
 
             }
             catch (Exception)
@@ -166,13 +168,13 @@ namespace C_Browser
             }
             if (setp.saveURL == "URL")
             {
-                File.WriteAllText("browser/c.txt", "yu");
+                System.IO.File.WriteAllText("browser/c.txt", "yu");
             }
 
 
             else if (setp.saveURL == "Название файла")
             {
-                File.WriteAllText("browser/c.txt", "ys");
+                System.IO.File.WriteAllText("browser/c.txt", "ys");
             }
             if (setp.saveCash == true)
             {
@@ -193,18 +195,13 @@ namespace C_Browser
             FullScreen.DisplayHandler displayer = new FullScreen.DisplayHandler();
             chromium.DisplayHandler = displayer;
             chromium.Dock = DockStyle.Fill;
+            chromium.Scale(9090);
             CefSharp.Example.Handlers.ExtensionHandler extension = new CefSharp.Example.Handlers.ExtensionHandler();
-
             C_Browser0.CustomMenuHandler customMenu = new C_Browser0.CustomMenuHandler();
             chromium.MenuHandler = customMenu;
             CefSharp.Example.DownloadHandler downloadHandler = new CefSharp.Example.DownloadHandler();
             chromium.DownloadHandler = downloadHandler;
             chromium.Margin = Padding.Empty;
-
-
-
-
-
             Ded.MyCustomLifeSpanHandler myCustomLifeSpanHandler = new Ded.MyCustomLifeSpanHandler();
             chromium.LifeSpanHandler = myCustomLifeSpanHandler;
             tabControl1.SelectedTab.Controls.Add(chromium);
@@ -217,9 +214,9 @@ namespace C_Browser
 
             this.Invoke(new MethodInvoker(() =>
             {
-                ico();
+                
                 tabControl1.SelectedTab.Text = e.Title;
-                tabControl1.SelectedTab.Text = e.Title;
+                
                 if (setp.saveType == "Адрес")
                 {
                     AddHistory(adress);
@@ -237,7 +234,7 @@ namespace C_Browser
                {
                    tabControl1.SelectedTab.Text = e.Address;
                    textBox1.Text = e.Address;
-                   textBox1.Text = e.Address;
+                   ico();
                    adress = e.Address;
                }));
         }
@@ -376,7 +373,7 @@ namespace C_Browser
 
         private void tabPage1_Click(object sender, EventArgs e)
         {
-
+           
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -402,7 +399,7 @@ namespace C_Browser
             {
                 string title;
                 title = textBox1.Text;
-                File.AppendAllText("browser/save.txt", "\n" + title);
+                System.IO.File.AppendAllText("browser/save.txt", "\n" + title);
             }));
 
         }
