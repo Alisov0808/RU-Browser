@@ -305,8 +305,90 @@ namespace C_Browser
 
         public void button5_Click(object sender, EventArgs e)
         {
+            Directory.CreateDirectory(@"C:\Users\Public\IE 12 Cashe");
+            Directory.CreateDirectory(@"C:\Users\Public\IE 12 Cashe\Cookes");
+            CefSharp.Cookie c = new CefSharp.Cookie();
+            if (setp.Style == "Popup")
+            {
+                button1.FlatStyle = FlatStyle.Popup;
+                button2.FlatStyle = FlatStyle.Popup;
+                button3.FlatStyle = FlatStyle.Popup;
+                button4.FlatStyle = FlatStyle.Popup;
+                button5.FlatStyle = FlatStyle.Popup;
+                button6.FlatStyle = FlatStyle.Popup;
+                button7.FlatStyle = FlatStyle.Popup;
+                button8.FlatStyle = FlatStyle.Popup;
+                button9.FlatStyle = FlatStyle.Popup;
+                button10.FlatStyle = FlatStyle.Popup;
+                button11.FlatStyle = FlatStyle.Popup;
+
+            }
+            if (setp.Style == "Standard")
+            {
+                button1.FlatStyle = FlatStyle.Standard;
+                button2.FlatStyle = FlatStyle.Standard;
+                button3.FlatStyle = FlatStyle.Standard;
+                button4.FlatStyle = FlatStyle.Standard;
+                button5.FlatStyle = FlatStyle.Standard;
+                button6.FlatStyle = FlatStyle.Standard;
+                button7.FlatStyle = FlatStyle.Standard;
+                button8.FlatStyle = FlatStyle.Standard;
+                button9.FlatStyle = FlatStyle.Standard;
+                button10.FlatStyle = FlatStyle.Standard;
+                button11.FlatStyle = FlatStyle.Standard;
+
+            }
+            if (setp.Style == "Flat")
+            {
+                button1.FlatStyle = FlatStyle.Flat;
+                button2.FlatStyle = FlatStyle.Flat;
+                button3.FlatStyle = FlatStyle.Flat;
+                button4.FlatStyle = FlatStyle.Flat;
+                button5.FlatStyle = FlatStyle.Flat;
+                button6.FlatStyle = FlatStyle.Flat;
+                button7.FlatStyle = FlatStyle.Flat;
+                button8.FlatStyle = FlatStyle.Flat;
+                button9.FlatStyle = FlatStyle.Flat;
+                button10.FlatStyle = FlatStyle.Flat;
+                button11.FlatStyle = FlatStyle.Flat;
+
+            }
+            if (setp.saveURL == "URL")
+            {
+                System.IO.File.WriteAllText("browser/c.txt", "yu");
+            }
 
 
+            else if (setp.saveURL == "Название файла")
+            {
+                System.IO.File.WriteAllText("browser/c.txt", "ys");
+            }
+            if (setp.saveCash == true)
+            {
+               
+                c.Domain = textBox1.Text;
+                c.Path = @"C:\Users\Public\IE 12 Cashe\Cookes";
+
+            }
+
+            int a0 = Convert.ToInt32(System.IO.File.ReadAllText("browser/rgb/c.txt"));
+            int a1 = Convert.ToInt32(System.IO.File.ReadAllText("browser/rgb/c1.txt"));
+            int a2 = Convert.ToInt32(System.IO.File.ReadAllText("browser/rgb/c2.txt"));
+            textBox1.BackColor = Color.FromArgb(a0, a1, a2);
+            int a00 = Convert.ToInt32(System.IO.File.ReadAllText("browser/rgb/b.txt"));
+            int a11 = Convert.ToInt32(System.IO.File.ReadAllText("browser/rgb/b1.txt"));
+            int a22 = Convert.ToInt32(System.IO.File.ReadAllText("browser/rgb/b2.txt"));
+            this.BackColor = Color.FromArgb(a00, a11, a22);
+            int a000 = Convert.ToInt32(System.IO.File.ReadAllText("browser/rgb/s1.txt"));
+            int a111 = Convert.ToInt32(System.IO.File.ReadAllText("browser/rgb/s2.txt"));
+            int a222 = Convert.ToInt32(System.IO.File.ReadAllText("browser/rgb/s3.txt"));
+            comboBox1.BackColor = Color.FromArgb(a000, a111, a222);
+            comboBox1.SelectedItem = "Быстрый доступ";
+
+            string[] dos = System.IO.File.ReadAllLines("browser/dostyp.txt");
+
+            comboBox1.Items.Clear();
+            comboBox1.Items.AddRange(dos);
             TabPage tab = new TabPage();
             tab.Text = "Новая вкладка";
             ChromiumWebBrowser chromium = new ChromiumWebBrowser("https://" + setp.startPage);

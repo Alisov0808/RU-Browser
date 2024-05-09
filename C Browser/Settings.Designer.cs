@@ -820,7 +820,7 @@
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(213, 36);
             this.label12.TabIndex = 12;
-            this.label12.Text = "*Для применения изменений \r\nперезапустите браузер";
+            this.label12.Text = "*Для применения изменений \r\nсоздайте новою вкладку\r\n";
             this.label12.Click += new System.EventHandler(this.label12_Click);
             // 
             // Settings
