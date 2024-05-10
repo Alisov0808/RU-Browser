@@ -2,15 +2,23 @@
 using CefSharp.DevTools.Autofill;
 using CefSharp.WinForms;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using TIMBrowser;
 using static System.Net.WebRequestMethods;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static TIMBrowser.Settings;
+using Control = System.Windows.Forms.Control;
+using Image = System.Drawing.Image;
+using TextBox = System.Windows.Forms.TextBox;
 
 namespace C_Browser
 {
@@ -30,10 +38,19 @@ namespace C_Browser
             //list.ImageSize = new Size(16, 16);
            
             InitializeComponent();
-
+           
+          
             // textBox1.BackColor = Color.FromArgb();
         }
+        [DllImport("wininet.dll")]
+        private extern static bool InternetGetConnectedState(out int Description, int ReservedValue);
 
+        public static bool IsConnectedToInternet()
+        {
+            int Desc;
+         
+            return InternetGetConnectedState(out Desc, 0);
+        }
         public void AddHistory(string site)
         {
             if (setp.saveHist)
@@ -76,10 +93,35 @@ namespace C_Browser
         public void Form1_Load(object sender, EventArgs e)
         {
 
-
+            
             try
             {
+                bool a = IsConnectedToInternet();
+                if (a == false)
+                {
 
+                    PictureBox pictureBox = new PictureBox();
+
+                    // Задаем режим размера, чтобы изображение подгонялось под размеры PictureBox
+                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+                    // Загружаем изображение
+                    pictureBox.Image = Image.FromFile("error.png");
+
+                    // Устанавливаем размер и положение PictureBox на форме
+                    pictureBox.Width = tabPage1.Width;
+                    pictureBox.Height = tabPage1.Height;
+                    pictureBox.Left = 10;
+                    pictureBox.Top = 10;
+
+                    TabPage tab = new TabPage();
+                    // Добавляем PictureBox на форму
+                    tabControl1.TabPages.Remove(tabControl1.SelectedTab);
+                    tab.Controls.Add(pictureBox);
+                    tabControl1.TabPages.Add(tab);
+                    tabControl1.SelectedTab = tab;
+                   
+                }
                 int a0 = Convert.ToInt32(System.IO.File.ReadAllText("browser/rgb/c.txt"));
                 int a1 = Convert.ToInt32(System.IO.File.ReadAllText("browser/rgb/c1.txt"));
                 int a2 = Convert.ToInt32(System.IO.File.ReadAllText("browser/rgb/c2.txt"));
@@ -215,8 +257,24 @@ namespace C_Browser
             this.Invoke(new MethodInvoker(() =>
             {
                 
-                tabControl1.SelectedTab.Text = e.Title;
+                 
+
+                TextBox textBoxOnTab=new TextBox();
+                textBoxOnTab.Text= tabControl1.TabPages[tabControl1.SelectedIndex].Text;
+                textBoxOnTab.MaxLength = 1;
+                string a = e.Title;
+                int y = a.Length;
+                if (a.Length > 20)
+                {
+                   a= a.Remove(20);
+
+                    
+                }
+               
+              
+                  tabControl1.SelectedTab.Text = a;
                 
+
                 if (setp.saveType == "Адрес")
                 {
                     AddHistory(adress);
@@ -232,10 +290,36 @@ namespace C_Browser
         {
             this.Invoke(new MethodInvoker(() =>
                {
+                  
                    tabControl1.SelectedTab.Text = e.Address;
                    textBox1.Text = e.Address;
                    ico();
                    adress = e.Address;
+                   bool a = IsConnectedToInternet();
+                   if (a == false)
+                   {
+
+                       PictureBox pictureBox = new PictureBox();
+
+                       // Задаем режим размера, чтобы изображение подгонялось под размеры PictureBox
+                       pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+                       // Загружаем изображение
+                       pictureBox.Image = Image.FromFile("error.png");
+
+                       // Устанавливаем размер и положение PictureBox на форме
+                       pictureBox.Width = tabPage1.Width;
+                       pictureBox.Height = tabPage1.Height;
+                       pictureBox.Left = 10;
+                       pictureBox.Top = 10;
+
+                       TabPage tab = new TabPage();
+                       // Добавляем PictureBox на форму
+                       tabControl1.TabPages.Remove(tabControl1.SelectedTab);
+                       tab.Controls.Add(pictureBox);
+                       tabControl1.TabPages.Add(tab);
+                       tabControl1.SelectedTab = tab;
+                   }
                }));
         }
 
@@ -244,13 +328,62 @@ namespace C_Browser
             ChromiumWebBrowser crome = tabControl1.SelectedTab.Controls[0] as ChromiumWebBrowser;
             if (crome != null && crome.CanGoForward)
             {
+                bool a = IsConnectedToInternet();
+                if (a == false)
+                {
+
+                    PictureBox pictureBox = new PictureBox();
+
+                    // Задаем режим размера, чтобы изображение подгонялось под размеры PictureBox
+                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+                    // Загружаем изображение
+                    pictureBox.Image = Image.FromFile("error.png");
+
+                    // Устанавливаем размер и положение PictureBox на форме
+                    pictureBox.Width = tabPage1.Width;
+                    pictureBox.Height = tabPage1.Height;
+                    pictureBox.Left = 10;
+                    pictureBox.Top = 10;
+
+                    TabPage tab = new TabPage();
+                    // Добавляем PictureBox на форму
+                    tabControl1.TabPages.Remove(tabControl1.SelectedTab);
+                    tab.Controls.Add(pictureBox);
+                    tabControl1.TabPages.Add(tab);
+                    tabControl1.SelectedTab = tab;
+                }
                 crome.Forward();
             }
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
+            bool a = IsConnectedToInternet();
+            if (a == false)
+            {
 
+                PictureBox pictureBox = new PictureBox();
+
+                // Задаем режим размера, чтобы изображение подгонялось под размеры PictureBox
+                pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+                // Загружаем изображение
+                pictureBox.Image = Image.FromFile("error.png");
+
+                // Устанавливаем размер и положение PictureBox на форме
+                pictureBox.Width = tabPage1.Width;
+                pictureBox.Height = tabPage1.Height;
+                pictureBox.Left = 10;
+                pictureBox.Top = 10;
+
+                TabPage tab = new TabPage();
+                // Добавляем PictureBox на форму
+                tabControl1.TabPages.Remove(tabControl1.SelectedTab);
+                tab.Controls.Add(pictureBox);
+                tabControl1.TabPages.Add(tab);
+                tabControl1.SelectedTab = tab;
+            }
             ChromiumWebBrowser crome = tabControl1.SelectedTab.Controls[0] as ChromiumWebBrowser;
             if (crome != null)
             {
@@ -305,6 +438,7 @@ namespace C_Browser
 
         public void button5_Click(object sender, EventArgs e)
         {
+            
             Directory.CreateDirectory(@"C:\Users\Public\IE 12 Cashe");
             Directory.CreateDirectory(@"C:\Users\Public\IE 12 Cashe\Cookes");
             CefSharp.Cookie c = new CefSharp.Cookie();
@@ -397,6 +531,8 @@ namespace C_Browser
             tabControl1.SelectedTab = tab;
             chromium.AddressChanged += Chromium_AddressChanged;
             chromium.TitleChanged += Chromium_TitleChanged;
+           
+
             FullScreen.DisplayHandler displayer = new FullScreen.DisplayHandler();
             chromium.DisplayHandler = displayer;
             chromium.Dock = DockStyle.Fill;
@@ -410,7 +546,32 @@ namespace C_Browser
             CefSharp.Example.DownloadHandler downloadHandler = new CefSharp.Example.DownloadHandler();
             chromium.DownloadHandler = downloadHandler;
             chromium.Margin = Padding.Empty;
+            
+            bool a = IsConnectedToInternet();
+            if (a == false)
+            {
 
+                PictureBox pictureBox = new PictureBox();
+
+                // Задаем режим размера, чтобы изображение подгонялось под размеры PictureBox
+                pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+                // Загружаем изображение
+                pictureBox.Image = Image.FromFile("error.png");
+
+                // Устанавливаем размер и положение PictureBox на форме
+                pictureBox.Width = tabPage1.Width;
+                pictureBox.Height = tabPage1.Height;
+                pictureBox.Left = 10;
+                pictureBox.Top = 10;
+
+                TabPage tab2 = new TabPage();
+                // Добавляем PictureBox на форму
+                tabControl1.TabPages.Remove(tabControl1.SelectedTab); tabControl1.SelectedTab = tab2;
+                tab2.Controls.Add(pictureBox);
+                tabControl1.TabPages.Add(tab2);
+
+            }
 
         }
 
@@ -435,6 +596,31 @@ namespace C_Browser
             ChromiumWebBrowser crome = tabControl1.SelectedTab.Controls[0] as ChromiumWebBrowser;
             if (crome != null && crome.CanGoBack)
             {
+                bool a = IsConnectedToInternet();
+                if (a == false)
+                {
+
+                    PictureBox pictureBox = new PictureBox();
+
+                    // Задаем режим размера, чтобы изображение подгонялось под размеры PictureBox
+                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+                    // Загружаем изображение
+                    pictureBox.Image = Image.FromFile("error.png");
+
+                    // Устанавливаем размер и положение PictureBox на форме
+                    pictureBox.Width = tabPage1.Width;
+                    pictureBox.Height = tabPage1.Height;
+                    pictureBox.Left = 10;
+                    pictureBox.Top = 10;
+
+                    TabPage tab = new TabPage();
+                    // Добавляем PictureBox на форму
+                    tabControl1.TabPages.Remove(tabControl1.SelectedTab);
+                    tab.Controls.Add(pictureBox);
+                    tabControl1.TabPages.Add(tab);
+                    tabControl1.SelectedTab = tab;
+                }
                 crome.Back();
             }
         }
@@ -444,6 +630,31 @@ namespace C_Browser
             ChromiumWebBrowser crome = tabControl1.SelectedTab.Controls[0] as ChromiumWebBrowser;
             if (crome != null)
             {
+                bool a = IsConnectedToInternet();
+                if (a == false)
+                {
+
+                    PictureBox pictureBox = new PictureBox();
+
+                    // Задаем режим размера, чтобы изображение подгонялось под размеры PictureBox
+                    pictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+
+                    // Загружаем изображение
+                    pictureBox.Image = Image.FromFile("error.png");
+
+                    // Устанавливаем размер и положение PictureBox на форме
+                    pictureBox.Width = tabPage1.Width;
+                    pictureBox.Height = tabPage1.Height;
+                    pictureBox.Left = 10;
+                    pictureBox.Top = 10;
+
+                    TabPage tab = new TabPage();
+                    // Добавляем PictureBox на форму
+                    tabControl1.TabPages.Remove(tabControl1.SelectedTab);
+                    tab.Controls.Add(pictureBox);
+                    tabControl1.TabPages.Add(tab);
+                    tabControl1.SelectedTab = tab;
+                }
                 crome.Reload();
             }
         }

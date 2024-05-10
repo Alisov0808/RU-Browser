@@ -91,6 +91,9 @@
             this.label13 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label12 = new System.Windows.Forms.Label();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -103,6 +106,8 @@
             this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.tabPage7.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -263,9 +268,9 @@
             this.groupBox3.Controls.Add(this.listBox1);
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Right;
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.groupBox3.Location = new System.Drawing.Point(582, 0);
+            this.groupBox3.Location = new System.Drawing.Point(581, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(362, 452);
+            this.groupBox3.Size = new System.Drawing.Size(556, 452);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "История";
@@ -279,7 +284,7 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.listBox1.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.listBox1.Size = new System.Drawing.Size(356, 428);
+            this.listBox1.Size = new System.Drawing.Size(550, 428);
             this.listBox1.TabIndex = 0;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
@@ -445,6 +450,7 @@
             this.tabPage4.Controls.Add(this.button12);
             this.tabPage4.Controls.Add(this.checkBox3);
             this.tabPage4.Controls.Add(this.label7);
+            this.tabPage4.Controls.Add(this.groupBox5);
             this.tabPage4.Location = new System.Drawing.Point(4, 29);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Size = new System.Drawing.Size(572, 354);
@@ -490,12 +496,9 @@
             // 
             // tabPage5
             // 
-            this.tabPage5.Controls.Add(this.comboBox4);
-            this.tabPage5.Controls.Add(this.label8);
-            this.tabPage5.Controls.Add(this.checkBox4);
-            this.tabPage5.Controls.Add(this.label6);
             this.tabPage5.Controls.Add(this.button11);
             this.tabPage5.Controls.Add(this.listBox3);
+            this.tabPage5.Controls.Add(this.groupBox6);
             this.tabPage5.Location = new System.Drawing.Point(4, 29);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Size = new System.Drawing.Size(572, 354);
@@ -510,7 +513,7 @@
             this.comboBox4.Items.AddRange(new object[] {
             "URL",
             "Название файла"});
-            this.comboBox4.Location = new System.Drawing.Point(181, 49);
+            this.comboBox4.Location = new System.Drawing.Point(182, 74);
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(121, 28);
             this.comboBox4.TabIndex = 12;
@@ -521,7 +524,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.Location = new System.Drawing.Point(3, 49);
+            this.label8.Location = new System.Drawing.Point(3, 77);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(158, 25);
             this.label8.TabIndex = 13;
@@ -533,7 +536,7 @@
             this.checkBox4.AutoSize = true;
             this.checkBox4.Checked = true;
             this.checkBox4.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox4.Location = new System.Drawing.Point(267, 16);
+            this.checkBox4.Location = new System.Drawing.Point(267, 38);
             this.checkBox4.Name = "checkBox4";
             this.checkBox4.Size = new System.Drawing.Size(18, 17);
             this.checkBox4.TabIndex = 15;
@@ -544,7 +547,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.941177F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(3, 14);
+            this.label6.Location = new System.Drawing.Point(3, 37);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(223, 18);
             this.label6.TabIndex = 13;
@@ -566,9 +569,9 @@
             // 
             this.listBox3.FormattingEnabled = true;
             this.listBox3.ItemHeight = 20;
-            this.listBox3.Location = new System.Drawing.Point(327, 3);
+            this.listBox3.Location = new System.Drawing.Point(327, 23);
             this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(242, 344);
+            this.listBox3.Size = new System.Drawing.Size(242, 324);
             this.listBox3.TabIndex = 15;
             this.listBox3.SelectedIndexChanged += new System.EventHandler(this.listBox3_SelectedIndexChanged);
             // 
@@ -584,11 +587,8 @@
             this.tabPage6.Controls.Add(this.textBox7);
             this.tabPage6.Controls.Add(this.textBox6);
             this.tabPage6.Controls.Add(this.textBox5);
-            this.tabPage6.Controls.Add(this.textBox4);
-            this.tabPage6.Controls.Add(this.textBox3);
-            this.tabPage6.Controls.Add(this.textBox2);
             this.tabPage6.Controls.Add(this.label10);
-            this.tabPage6.Controls.Add(this.label9);
+            this.tabPage6.Controls.Add(this.groupBox7);
             this.tabPage6.Location = new System.Drawing.Point(4, 29);
             this.tabPage6.Name = "tabPage6";
             this.tabPage6.Size = new System.Drawing.Size(572, 354);
@@ -696,7 +696,7 @@
             // textBox4
             // 
             this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.05882F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox4.Location = new System.Drawing.Point(465, 14);
+            this.textBox4.Location = new System.Drawing.Point(465, 19);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(41, 28);
             this.textBox4.TabIndex = 17;
@@ -705,7 +705,7 @@
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.05882F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox3.Location = new System.Drawing.Point(418, 14);
+            this.textBox3.Location = new System.Drawing.Point(418, 18);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(41, 28);
             this.textBox3.TabIndex = 16;
@@ -713,7 +713,7 @@
             // textBox2
             // 
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.05882F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.textBox2.Location = new System.Drawing.Point(371, 14);
+            this.textBox2.Location = new System.Drawing.Point(371, 18);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(41, 28);
             this.textBox2.TabIndex = 15;
@@ -733,7 +733,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.Location = new System.Drawing.Point(3, 14);
+            this.label9.Location = new System.Drawing.Point(3, 21);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(248, 25);
             this.label9.TabIndex = 14;
@@ -823,11 +823,47 @@
             this.label12.Text = "*Для применения изменений \r\nсоздайте новою вкладку\r\n";
             this.label12.Click += new System.EventHandler(this.label12_Click);
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Location = new System.Drawing.Point(3, 3);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(566, 348);
+            this.groupBox5.TabIndex = 13;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Кеш";
+            this.groupBox5.Enter += new System.EventHandler(this.groupBox5_Enter);
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.checkBox4);
+            this.groupBox6.Controls.Add(this.comboBox4);
+            this.groupBox6.Controls.Add(this.label6);
+            this.groupBox6.Controls.Add(this.label8);
+            this.groupBox6.Location = new System.Drawing.Point(0, 3);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(566, 348);
+            this.groupBox6.TabIndex = 14;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Загрузки";
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.label9);
+            this.groupBox7.Controls.Add(this.textBox2);
+            this.groupBox7.Controls.Add(this.textBox3);
+            this.groupBox7.Controls.Add(this.textBox4);
+            this.groupBox7.Location = new System.Drawing.Point(0, 3);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(566, 348);
+            this.groupBox7.TabIndex = 14;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Цвета";
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(944, 452);
+            this.ClientSize = new System.Drawing.Size(1137, 452);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.button2);
@@ -851,11 +887,14 @@
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
             this.tabPage7.ResumeLayout(false);
             this.tabPage7.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -925,5 +964,8 @@
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.TextBox textBox8;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.GroupBox groupBox7;
     }
 }

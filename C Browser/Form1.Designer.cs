@@ -164,10 +164,10 @@
             this.button6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button6.Location = new System.Drawing.Point(1559, -2);
+            this.button6.Location = new System.Drawing.Point(1563, -2);
             this.button6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(55, 46);
+            this.button6.Size = new System.Drawing.Size(51, 46);
             this.button6.TabIndex = 402;
             this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.button6_Click);
@@ -224,7 +224,7 @@
             this.button5.Location = new System.Drawing.Point(1510, -2);
             this.button5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(53, 46);
+            this.button5.Size = new System.Drawing.Size(56, 46);
             this.button5.TabIndex = 401;
             this.button5.UseVisualStyleBackColor = false;
             this.button5.Click += new System.EventHandler(this.button5_Click);
